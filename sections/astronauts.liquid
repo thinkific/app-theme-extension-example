@@ -1,0 +1,230 @@
+{% assign index = "now"  | date: "%N" | modulo: 5 | downcase %}
+{% case index %}
+{% when "0" %}
+    {% assign heading_text = "Roberta Bondar" %}
+    {% assign final_text = "Canada's first female astronaut and the first neurologist in space" %}
+    {% assign astronaut_url = "https://cdn.britannica.com/35/210535-050-60B90533/Roberta-Bodnar-Canadian-astronaut.jpg" %}
+{% when "1" %}
+    {% assign heading_text = "Jenni Sidey-Gibbons" %}
+    {% assign final_text = "Canadian astronaut, engineer, and lecturer. She was selected by the Canadian Space Agency (CSA) as one of the two members of the 2017 CSA group alongside Joshua Kutryk" %}
+    {% assign astronaut_url = "https://asc-csa.gc.ca/images/recherche/tiles/99817815-4ad5-4436-b2f4-c5868a250f1e.jpg" %}
+{% when "2" %}
+    {% assign heading_text = "Jeanette Epps" %}
+    {% assign final_text = "American aerospace engineer and NASA astronaut." %}
+    {% assign astronaut_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Jeanette_J._Epps.jpg/1024px-Jeanette_J._Epps.jpg" %}
+{% when "3" %}
+    {% assign heading_text = "Joan Higginbotham" %}
+    {% assign final_text = "Electrical engineer and a former NASA astronaut." %}
+    {% assign astronaut_url = "https://upload.wikimedia.org/wikipedia/commons/0/09/Joan_Higginbotham.jpg" %}
+{% else %}
+    {% assign heading_text = "Chiaki Mukai" %}
+    {% assign final_text = "Japanese physician and JAXA astronaut. She was the first Japanese woman in space, and was the first Japanese citizen to have two spaceflights." %}
+    {% assign astronaut_url = "https://upload.wikimedia.org/wikipedia/commons/3/31/Chiaki_Mukai.jpg" %}
+{% endcase %}
+
+
+<section class=
+  "
+    astronauts
+    {% include 'section_utility_background' %}
+    {% include 'section_utility_content_alignment' %}
+    {% include 'section_utility_height_preset' %}
+  "
+  data-preview-item="astronauts"
+>
+  <div class="astronauts__container">
+    <div class="astronauts__wrapper">
+      <article class="astronauts__content">
+        <h2 class="astronauts__heading">{{ heading_text }}</h2>
+        <p class="astronauts__subheading">{{ final_text }}</p>
+      </article>
+    <div class="astronauts__image"></div>
+  </div>
+</section>
+
+{% style %}
+  .astronauts {
+    {% include 'section_style_background' %}
+    {% include 'section_style_content_alignment' %}
+    {% include 'section_style_heading_ornament' %}
+
+    display: flex;
+    align-items: center;
+  }
+
+  .astronauts__container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding-right: 1rem;
+    padding-left: 1rem;
+
+    @media screen and (min-width: 768px) {
+      max-width: 768px;
+    }
+
+    @media screen and (min-width: 992px) {
+      max-width: 992px;
+    }
+
+    @media screen and (min-width: 1200px) {
+      max-width: 1200px;
+    }
+  }  
+
+  .astronauts__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -1rem;
+    margin-left: -1rem;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .astronauts__content {
+    position: relative;
+    width: 100%;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .astronauts__heading {
+    color: {{ section.settings.text_color }};
+    font-size: ( {{ section.settings.heading_size | append: 'rem' }} / 1.25 );
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+
+    @media screen and (min-width: 768px) {
+      font-size: {{ section.settings.heading_size | append: 'rem' }};
+    }
+  }
+
+  .astronauts__subheading {
+    font-weight: 300;
+    line-height: 1.2;
+    color: {{ section.settings.text_color }};
+    font-size: 1rem;
+  }
+
+  .astronauts__image {
+    background-image: url("{{ astronaut_url }}");
+    width: 400px;
+    height: 500px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+{% endstyle %}
+
+{% schema %}
+{
+  "label":"Astronauts",
+  "description":"",
+  "settings":[
+    {
+      "label":"Headings",
+      "settings":[
+        {
+          "type":"color",
+          "id":"text_color",
+          "label":"Text color override",
+          "default":"#ffffff"
+        },
+        {
+          "type":"number",
+          "min":1,
+          "max":9,
+          "id":"heading_size",
+          "default":3,
+          "label":"Size",
+          "description":""
+        }
+      ]
+    },
+    {
+      "label":"Background image",
+      "settings":[
+        {
+          "type":"image",
+          "id":"background_image",
+          "default":"https://mission-blue.org/wp-content/uploads/2013/04/the-blue-planet-4fc7047462c251.jpg",
+          "label":"Image",
+          "description":"<small>Recommended: <strong>1440px x 720px (1MB)</strong></small>"
+        },
+        {
+          "type":"image_origin",
+          "id":"background_image_origin",
+          "default": "center center",
+          "label":"Image focal point"
+        },
+        {
+          "type":"color",
+          "id":"overlay_color",
+          "label":"Overlay color",
+          "default":"#000000"
+        },
+        {
+          "type":"number",
+          "id":"overlay_opacity",
+          "label":"Overlay opacity",
+          "default":30,
+          "min":0,
+          "max":100
+        }
+      ]
+    },
+    {
+      "label":"Size & alignment",
+      "settings":[
+        {
+          "type":"select",
+          "id":"section_height_preset",
+          "label":"Height",
+          "description":"",
+          "default":"large",
+          "options":[
+            {
+              "value":"small",
+              "label":"Small"
+            },
+            {
+              "value":"medium",
+              "label":"Medium"
+            },
+            {
+              "value":"large",
+              "label":"Large"
+            },
+            {
+              "value":"xlarge",
+              "label":"Extra large"
+            }
+          ]
+        },
+        {
+          "type":"radio",
+          "id":"content_alignment",
+          "label":"Alignment",
+          "default":"left",
+          "options":[
+            {
+              "value":"left",
+              "label":"Left"
+            },
+            {
+              "value":"center",
+              "label":"Center"
+            },
+            {
+              "value":"right",
+              "label":"Right"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

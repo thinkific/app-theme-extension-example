@@ -1,0 +1,12 @@
+{
+  "name": "Example App",
+  "author": "Thinkific Partner",
+  "version": "0.0.1",
+  "repository": "https://github.com/your-account/your-repo",
+  "documentation_url": "https://github.com/your-account/your-repo/blob/master/README.md",
+  "support_url": "https://github.com/your-account/your-repo/issues",
+  "icons": {
+    "48": "icon.png",
+    "96": "icon@2x.png"
+  }
+}

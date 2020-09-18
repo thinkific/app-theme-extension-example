@@ -1,0 +1,228 @@
+{% assign index = "now"  | date: "%N" | modulo: 3 | downcase %}
+{% case index %}
+{% when "0" %}
+    {% assign heading_text = "Columbia" %}
+    {% assign final_text = "The space shuttle Columbia was the first space-rated orbiter in NASA's Space Shuttle fleet" %}
+    {% assign satellite_url = "https://upload.wikimedia.org/wikipedia/commons/2/26/Space_Shuttle_Columbia_lands_following_STS-62_on_18_March_1994._%28cropped%29.jpg" %}
+{% when "1" %}
+    {% assign heading_text = "Sputnik 1" %}
+    {% assign final_text = "Canadian astronaut, engineer, and lecturer. She was selected by the Canadian Space Agency (CSA) as one of the two members of the 2017 CSA group alongside Joshua Kutryk" %}
+    {% assign satellite_url = "https://public-media.si-cdn.com/filer/4f/4b/4f4bc9ba-35ce-4ed3-8450-ee1807fc24d9/sputnik_banner.jpg" %}
+{% else %}
+    {% assign heading_text = "Alouette 1" %}
+    {% assign final_text = "Alouette 1 is a deactivated Canadian satellite that studied the ionosphere. Launched in 1962, it was Canada's first satellite, and the first satellite constructed by a country other than the Soviet Union or the United States." %}
+    {% assign satellite_url = "https://asc-csa.gc.ca/images/recherche/tiles/alouette_hr.jpg" %}
+{% endcase %}
+
+<section class=
+  "
+    satellites
+    {% include 'section_utility_background' %}
+    {% include 'section_utility_content_alignment' %}
+    {% include 'section_utility_height_preset' %}
+  "
+  data-preview-item="satellites"
+>
+  <div class="satellites__container">
+    <div class="satellites__wrapper">
+      <article class="satellites__content">
+        <h2 class="satellites__heading">{{ heading_text }}</h2>
+        <p class="satellites__subheading">{{ final_text }}</p>
+      </article>
+      <div class="satellites__image"></div>
+  </div>
+</section>
+
+{% style %}
+
+  .satellites {
+    {% include 'section_style_background' %}
+    {% include 'section_style_content_alignment' %}
+    {% include 'section_style_heading_ornament' %}
+
+    display: flex;
+    align-items: center;
+  }
+
+  .satellites__container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding-right: 1rem;
+    padding-left: 1rem;
+
+    @media screen and (min-width: 768px) {
+      max-width: 768px;
+    }
+
+    @media screen and (min-width: 992px) {
+      max-width: 992px;
+    }
+
+    @media screen and (min-width: 1200px) {
+      max-width: 1200px;
+    }
+  }  
+
+  .satellites__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -1rem;
+    margin-left: -1rem;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .satellites__content {
+    position: relative;
+    width: 100%;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .satellites__heading {
+    color: {{ section.settings.text_color }};
+    font-size: ( {{ section.settings.heading_size | append: 'rem' }} / 1.25 );
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+
+    @media screen and (min-width: 768px) {
+      font-size: {{ section.settings.heading_size | append: 'rem' }};
+    }
+  }
+
+  .satellites__subheading {
+    font-weight: 300;
+    line-height: 1.2;
+    color: {{ section.settings.text_color }};
+    font-size: 1rem;
+  }
+
+  .satellites__image {
+    background-image: url("{{ satellite_url }}");
+    width: 400px;
+    height: 500px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+{% endstyle %}
+
+{% schema %}
+{
+  "label":"Spacecrafts",
+  "description":"",
+  "settings":[
+    {
+      "type":"checkbox",
+      "id":"hide_default_buttons",
+      "label":"Hide default buttons (product pages only)",
+      "default":false
+    },
+    {
+      "label":"Headings",
+      "settings":[
+        {
+          "type":"color",
+          "id":"text_color",
+          "label":"Text color override",
+          "default":"#ffffff"
+        },
+        {
+          "type":"number",
+          "min":1,
+          "max":9,
+          "id":"heading_size",
+          "default":3,
+          "label":"Size",
+          "description":""
+        }
+      ]
+    },
+    {
+      "label":"Background image",
+      "settings":[
+        {
+          "type":"image",
+          "id":"background_image",
+          "default":"https://mission-blue.org/wp-content/uploads/2013/04/the-blue-planet-4fc7047462c251.jpg",
+          "label":"Image",
+          "description":"<small>Recommended: <strong>1440px x 720px (1MB)</strong></small>"
+        },
+        {
+          "type":"image_origin",
+          "id":"background_image_origin",
+          "default": "center center",
+          "label":"Image focal point"
+        },
+        {
+          "type":"color",
+          "id":"overlay_color",
+          "label":"Overlay color",
+          "default":"#000000"
+        },
+        {
+          "type":"number",
+          "id":"overlay_opacity",
+          "label":"Overlay opacity",
+          "default":30,
+          "min":0,
+          "max":100
+        }
+      ]
+    },
+    {
+      "label":"Size & alignment",
+      "settings":[
+        {
+          "type":"select",
+          "id":"section_height_preset",
+          "label":"Height",
+          "description":"",
+          "default":"large",
+          "options":[
+            {
+              "value":"small",
+              "label":"Small"
+            },
+            {
+              "value":"medium",
+              "label":"Medium"
+            },
+            {
+              "value":"large",
+              "label":"Large"
+            },
+            {
+              "value":"xlarge",
+              "label":"Extra large"
+            }
+          ]
+        },
+        {
+          "type":"radio",
+          "id":"content_alignment",
+          "label":"Alignment",
+          "default":"left",
+          "options":[
+            {
+              "value":"left",
+              "label":"Left"
+            },
+            {
+              "value":"center",
+              "label":"Center"
+            },
+            {
+              "value":"right",
+              "label":"Right"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
